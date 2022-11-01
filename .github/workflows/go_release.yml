@@ -1,0 +1,23 @@
+name: Go Release
+
+on:
+  workflow_call:
+    inputs:
+      go-version:
+        required: true
+        type: string
+      github-token:
+        required: true
+        type: string
+
+jobs:
+  release-windows-amd64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: compile and release
+        uses: ngs/go-release.action@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ inputs.github-token }}
+          GOARCH: amd64
+          GOOS: windows
